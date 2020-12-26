@@ -49,7 +49,9 @@ export function xmlStringify (xmlComponent?: Xml | XmlComponent): string {
       if (!xml) return ''
       if (typeof xml === 'string') return encodeXml(xml)
       if (xml.type === 'text') return encodeXml(xml.text)
-      if (xml.type === 'raw') return xml.xml.replace(/\?>(\r\n\s*)+</, '?>\r\n<').replace(/(?<!\?)>(\r\n\s*)+</g, '><')
+      if (xml.type === 'raw') {
+        return xml.xml.replace(/\?>(\r?\n\s*)+</, '?>\r\n<').replace(/(?<!\?)>(\s*\r?\n\s*)+</g, '><').trim()
+      }
       const children = xml.children?.length ? helper(xml.children) : ''
       if (xml.type === 'group') return children
       const nsAttrStr = attrStringify(xml.ns, true)
@@ -75,7 +77,10 @@ export function attrStringify (attrs?: XmlAttrs, ns = false) {
   const attrStr = Object.keys(attrs)
     .map(k => [k, attrs[k]])
     .filter(([_k, v]) => v !== '' && v != null)
-    .map(([k, v]) => ns ? `xmlns:${k}=${encodeXmlAttr(v)}` : `${k}=${encodeXmlAttr(v)}`)
+    .map(([k, v]) => {
+      const r = `${k}="${encodeXmlAttr(v)}"`
+      return ns ? (k ? `xmlns:${r}` : `xmlns${r}`) : r
+    })
     .join(' ')
   return attrStr ? ` ${attrStr}` : ''
 }
