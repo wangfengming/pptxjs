@@ -21,11 +21,15 @@ export const SIZE_MAP = {
   [SIZES.WIDE]: { width: 12192000, height: 6858000 },
 } as const
 
+interface Zip {
+  file (path: string, data: string, options?: { base64?: boolean }): this;
+}
+
 export class Pptx {
   readonly slides: Slide[] = []
-  readonly noteSlides = []
+  readonly noteSlides: string[] = []
 
-  constructor (readonly options: PptxOptions = {}) {
+  constructor (readonly options: PptxOptions = {}, readonly zip: Zip) {
     options.slides?.forEach(slide => this.addSlide(slide))
   }
 
