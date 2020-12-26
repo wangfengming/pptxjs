@@ -29,7 +29,7 @@ export type STUnit = keyof typeof units
 function unitConvert (value: number | string | STValue | undefined, toType: STUnit, fromType?: STUnit) {
   if (value == null) return
   if (typeof value === 'string') {
-    const match = value.toLowerCase().match(/^([+\-]?(\d+\.?\d*)|(\d*\.?\d+))(pt|mm|cm|in|inch?|hpt|emu)?$/)
+    const match = value.toLowerCase().match(/^([+-]?(\d+\.?\d*)|(\d*\.?\d+))(pt|mm|cm|in|inch?|hpt|emu)?$/)
     if (!match) return
     value = +match[1]
     fromType = match[4] as STUnit || fromType
