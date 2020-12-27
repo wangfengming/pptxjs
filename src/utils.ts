@@ -62,35 +62,35 @@ export function toPct (value?: STPercentage) {
 
 export function toFixedPct (value?: STFixedPercentage) {
   if (value && (value < -100 || value > 100)) {
-    throw new Error('Fixed percentage should range in -100%~100%!')
+    throw new Error('Fixed percentage should <=-100% and >=100%!')
   }
   return toPct(value)
 }
 
 export function toPositivePct (value?: STPositivePercentage) {
   if (value && (value < 0)) {
-    throw new Error('Positive percentage should great than or equal zero!')
+    throw new Error('Positive percentage should >=0%!')
   }
   return toPct(value)
 }
 
 export function toPositiveFixedPct (value?: STPositiveFixedPercentage) {
   if (value && (value < 0 || value > 100)) {
-    throw new Error('Positive fixed percentage should range in 0%~100%!')
+    throw new Error('Positive fixed percentage should >=0% and <=100%!')
   }
   return toPct(value)
 }
 
 export function toOffsetColorPct (value?: STOffsetColorPercentage) {
   if (value && (value < -255 || value > 255)) {
-    throw new Error('Color offset value should range in -255~255!')
+    throw new Error('Color offset value should >=-255 and <=255!')
   }
   return value == null ? undefined : toPct(value / 255 * 100)
 }
 
 export function toColorPct (value?: STColorPercentage) {
   if (value && (value < 0 || value > 255)) {
-    throw new Error('Positive color value should range in 0~255!')
+    throw new Error('Positive color value should >=0 and <=255!')
   }
   return value == null ? undefined : toPct(value / 255 * 100)
 }
@@ -102,14 +102,14 @@ export function toAngle (value?: STAngle) {
 
 export function toFixedAngle (value?: STFixedAngle) {
   if (value && (value < -90 || value > 90)) {
-    throw new Error('Fixed angle should range in -90~90!')
+    throw new Error('Fixed angle should >=-90 and <=90!')
   }
   return toAngle(value)
 }
 
 export function toPositiveFixedAngle (value?: STPositiveFixedAngle) {
   if (value && (value < 0 || value > 360)) {
-    throw new Error('Positive fixed angle should range in 0~360!')
+    throw new Error('Positive fixed angle should >=0 and <=360!')
   }
   return toAngle(value)
 }
