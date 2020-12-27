@@ -1,8 +1,8 @@
-import { Xml, XmlComponent, XmlGroup } from '../xml'
-import { BulletAutonumberType } from '../interface/enum'
+import { Xml, XmlComponent, XmlGroup } from '../../xml'
+import { BulletAutonumberType } from '../../interface/enum'
 import { Blip, BlipOptions } from './blip'
-import { STPoint, STPositivePercentage } from '../interface/type'
-import { toHpt, toPct } from '../utils'
+import { STPoint, STPositivePercentage } from '../../interface/type'
+import { toHpt, toPct } from '../../utils'
 import { Color, ColorOptions } from './color'
 
 export interface BulletOptions {

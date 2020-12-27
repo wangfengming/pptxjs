@@ -1,4 +1,4 @@
-import { XmlComponent, XmlElement } from '../xml'
+import { XmlComponent, XmlElement } from '../../xml'
 
 export interface SoundOptions {
   embed: string;

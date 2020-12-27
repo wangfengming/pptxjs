@@ -1,4 +1,4 @@
-import { Xml, XmlComponent, XmlGroup } from '../xml'
+import { Xml, XmlComponent, XmlGroup } from '../../xml'
 
 export interface FontOptions {
   latin?: string;

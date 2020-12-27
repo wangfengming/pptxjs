@@ -1,4 +1,4 @@
-import { XmlComponent, XmlElement } from '../xml'
+import { XmlComponent, XmlElement } from '../../xml'
 import { Sound, SoundOptions } from './sound'
 
 export interface HyperlinkOptions {

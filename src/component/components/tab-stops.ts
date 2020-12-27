@@ -1,7 +1,7 @@
-import { TabAlignType } from '../interface/enum'
-import { STPoint } from '../interface/type'
-import { XmlComponent, XmlElement } from '../xml'
-import { toEmu } from '../utils'
+import { TabAlignType } from '../../interface/enum'
+import { STPoint } from '../../interface/type'
+import { XmlComponent, XmlElement } from '../../xml'
+import { toEmu } from '../../utils'
 
 export interface TabStopsOptions {
   tabStops?: TabStopOptions[];

@@ -1,8 +1,8 @@
-import { Xml, XmlComponent, XmlElement } from '../xml'
+import { Xml, XmlComponent, XmlElement } from '../../xml'
 import { Color, ColorOptions } from './color'
-import { PathShadeType, PatternFillPresetType, RectAlignType, TileFlipType } from '../interface/enum'
-import { STPercentage, STPoint, STPositiveFixedPercentage } from '../interface/type'
-import { toEmu, toPct, toPositiveFixedPct } from '../utils'
+import { PathShadeType, PatternFillPresetType, RectAlignType, TileFlipType } from '../../interface/enum'
+import { STPercentage, STPoint, STPositiveFixedPercentage } from '../../interface/type'
+import { toEmu, toPct, toPositiveFixedPct } from '../../utils'
 import { Blip, BlipOptions } from './blip'
 
 export type FillOptions =

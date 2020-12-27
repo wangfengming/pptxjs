@@ -2,9 +2,9 @@ import { Xml, XmlComponent, XmlElement } from '../../xml'
 import { STPoint, STTextIndentLevel } from '../../interface/type'
 import { toEmu } from '../../utils'
 import { FontAlignType, TextAlignType } from '../../interface/enum'
-import { Spacing, SpacingAfter, SpacingBefore, SpacingOptions } from '../spacing'
-import { Bullet, BulletOptions } from '../bullet'
-import { TabStopOptions, TabStops } from '../tab-stops'
+import { Spacing, SpacingAfter, SpacingBefore, SpacingOptions } from '../components/spacing'
+import { Bullet, BulletOptions } from '../components/bullet'
+import { TabStopOptions, TabStops } from '../components/tab-stops'
 import { DefaultTextRunProperties, RunPropertiesOptions } from './run-properties'
 
 export interface ParagraphPropertiesOptions {

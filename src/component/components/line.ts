@@ -1,5 +1,5 @@
-import { XmlComponent, XmlElement } from '../xml'
-import { toEmu, toPositivePct } from '../utils'
+import { XmlComponent, XmlElement } from '../../xml'
+import { toEmu, toPositivePct } from '../../utils'
 import {
   CompoundType,
   EndingCapType,
@@ -7,8 +7,8 @@ import {
   LineEndSizeType,
   LineEndType,
   StrokeAlignType
-} from '../interface/enum'
-import { STInch, STPositivePercentage } from '../interface/type'
+} from '../../interface/enum'
+import { STInch, STPositivePercentage } from '../../interface/type'
 import { LineFill, LineFillOptions } from './fill'
 
 export interface LineOptions extends LineDashOptions {

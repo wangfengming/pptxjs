@@ -1,4 +1,4 @@
-import { Xml, XmlAttrs, XmlComponent, XmlElement } from '../xml'
+import { Xml, XmlAttrs, XmlComponent, XmlElement } from '../../xml'
 import {
   toAngle,
   toColorPct,
@@ -8,7 +8,7 @@ import {
   toPositiveFixedAngle,
   toPositiveFixedPct,
   toPositivePct
-} from '../utils'
+} from '../../utils'
 import {
   STAngle,
   STColorPercentage,
@@ -18,8 +18,8 @@ import {
   STPositiveFixedAngle,
   STPositiveFixedPercentage,
   STPositivePercentage
-} from '../interface/type'
-import { SchemeColorType } from '../interface/enum'
+} from '../../interface/type'
+import { SchemeColorType } from '../../interface/enum'
 
 export interface ColorOptions extends ColorChoiceOptions, ColorTransformOptions {}
 
