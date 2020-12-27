@@ -27,6 +27,8 @@
     "webpack": "^5.11.0",
     "webpack-cli": "^4.3.0"
   },
+  "main": "dist/pptx.js",
+  "types": "dist/pptx.d.ts",
   "browserslist": [
     "> 1%",
     "last 2 versions",

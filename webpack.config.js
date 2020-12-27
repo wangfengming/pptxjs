@@ -7,7 +7,12 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: 'ts-loader',
+        use: {
+          loader: 'ts-loader',
+          options: {
+            configFile: 'tsconfig.webpack.json'
+          },
+        },
         exclude: /node_modules/,
       },
     ],
@@ -16,7 +21,9 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   output: {
-    filename: 'pptx.js',
     path: path.resolve(__dirname, 'dist'),
+    filename: 'pptx.js',
+    libraryTarget: "umd",
+    library: "pptx",
   },
 }
