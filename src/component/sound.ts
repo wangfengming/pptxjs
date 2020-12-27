@@ -1,4 +1,4 @@
-import { XmlComponent } from '../xml'
+import { XmlComponent, XmlElement } from '../xml'
 
 export interface SoundOptions {
   embed: string;
@@ -14,7 +14,7 @@ export enum SoundTag {
 export class Sound extends XmlComponent {
   constructor (readonly options: SoundOptions, readonly tag = SoundTag.Sound) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const tag = this.tag
     const options = this.options
     return { tag, attr: { 'r:embed': options.embed, name: options.name, buildIn: options.buildIn } }

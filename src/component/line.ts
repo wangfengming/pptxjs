@@ -1,4 +1,4 @@
-import { XmlComponent } from '../xml'
+import { XmlComponent, XmlElement } from '../xml'
 import { toEmu, toPositivePct } from '../utils'
 import {
   CompoundType,
@@ -30,7 +30,7 @@ export enum LineTag {
 export class Line extends XmlComponent {
   constructor (readonly options: LineOptions = {}, readonly tag = LineTag.Line) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     const tag = this.tag
     const attr = {
@@ -65,7 +65,7 @@ export interface CustomDashStop {
 export class LineDash extends XmlComponent {
   constructor (readonly options: LineDashOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     if (!options.dash) return
     if (typeof options.dash === 'string') {
@@ -88,7 +88,7 @@ export type LineJoinType = 'round' | 'bevel' | 'miter'
 export class LineJoin extends XmlComponent {
   constructor (readonly options: LineJoinOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     if (!options.type) return
     if (options.type === 'round') return { tag: 'a:round' }
@@ -111,7 +111,7 @@ export enum LineEndTag {
 export class LineEnd extends XmlComponent {
   constructor (readonly options: LineEndOptions = {}, readonly tag: LineEndTag) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     return { tag: this.tag, attr: { type: options.type, w: options.width, len: options.length } }
   }

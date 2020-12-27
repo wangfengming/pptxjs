@@ -1,4 +1,4 @@
-import { Xml, XmlComponent } from '../xml'
+import { Xml, XmlComponent, XmlElement } from '../xml'
 import { Color, ColorOptions } from './color'
 import { PathShadeType, PatternFillPresetType, RectAlignType, TileFlipType } from '../interface/enum'
 import { STPercentage, STPoint, STPositiveFixedPercentage } from '../interface/type'
@@ -16,7 +16,7 @@ export type FillOptions =
 export class Fill extends XmlComponent {
   constructor (readonly options: FillOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement | undefined {
     const options = this.options
     if (!options.type) return
     if (options.type === 'no') return new NoFill().xmlComponent()
@@ -37,7 +37,7 @@ export type LineFillOptions =
 export class LineFill extends XmlComponent {
   constructor (readonly options: LineFillOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement | undefined {
     const options = this.options
     if (!options.type) return
     if (options.type === 'no') return new NoFill().xmlComponent()
@@ -48,7 +48,7 @@ export class LineFill extends XmlComponent {
 }
 
 export class NoFill extends XmlComponent {
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     return { tag: 'a:noFill' }
   }
 }
@@ -60,7 +60,7 @@ export interface SolidFillOption {
 export class SolidFill extends XmlComponent {
   constructor (readonly options: SolidFillOption = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     return { tag: 'a:solidFill', children: [new Color(options.color)] }
   }
@@ -75,7 +75,7 @@ export interface PatternFillOptions {
 export class PatternFill extends XmlComponent {
   constructor (readonly options?: PatternFillOptions) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     if (!options) return
     const children: Xml[] = []
@@ -102,7 +102,7 @@ export interface GradientStopOptions {
 export class GradientFill extends XmlComponent {
   constructor (readonly options?: GradientFillOptions) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     if (!options) return
     const attr = { flip: options.flip, rotWithShape: options.rotateWithShape }
@@ -149,7 +149,7 @@ export interface BlipFillOptions {
 export class BlipFill extends XmlComponent {
   constructor (readonly options?: BlipFillOptions) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     if (!options) return
     const attr = { dpi: options.dpi, rotWithShape: options.rotateWithShape }
@@ -183,7 +183,7 @@ export class BlipFill extends XmlComponent {
 }
 
 export class GroupFill extends XmlComponent {
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     return { tag: 'a:grpFill' }
   }
 }
@@ -205,7 +205,7 @@ export enum RectangleTag {
 export class Rectangle extends XmlComponent {
   constructor (readonly options: RectangleOptions | undefined, readonly tag: RectangleTag) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     if (!options) return
     const attr = {

@@ -1,4 +1,4 @@
-import { XmlComponent } from '../xml'
+import { XmlComponent, XmlElement } from '../xml'
 import { BlipCompressionType } from '../interface/enum'
 import { BlipEffect, BlipEffectOptions } from './effect'
 
@@ -14,7 +14,7 @@ export interface BlipChoiceOptions {
 export class Blip extends XmlComponent {
   constructor (readonly options: BlipOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     if (!options.embedId && !options.linkId) return
     const attr = {

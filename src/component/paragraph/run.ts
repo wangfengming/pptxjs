@@ -1,5 +1,5 @@
 import { RunProperties, RunPropertiesOptions } from './run-properties'
-import { Xml, XmlComponent } from '../../xml'
+import { Xml, XmlComponent, XmlElement } from '../../xml'
 import { ParagraphProperties, ParagraphPropertiesOptions } from './paragraph-properties'
 import { TextFieldType } from '../../interface/enum'
 import { uuid } from '../../utils'
@@ -25,7 +25,7 @@ export interface TextFieldOptions extends RunPropertiesOptions {
 export class TextRun extends XmlComponent {
   constructor (readonly options: TextRunOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     return {
       tag: 'a:r',
@@ -37,7 +37,7 @@ export class TextRun extends XmlComponent {
 export class TextLineBreak extends XmlComponent {
   constructor (readonly options: TextLineBreakOptions = { runType: 'lineBreak' }) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     return { tag: 'a:br', children: [new RunProperties(options)] }
   }
@@ -46,7 +46,7 @@ export class TextLineBreak extends XmlComponent {
 export class TextField extends XmlComponent {
   constructor (readonly options: TextFieldOptions = { runType: 'field' }) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     const attr = { id: uuid(), type: options.type }
     const children: (Xml | XmlComponent)[] = []

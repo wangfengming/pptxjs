@@ -1,4 +1,4 @@
-import { XmlComponent } from '../xml'
+import { XmlComponent, XmlElement } from '../xml'
 import { Sound, SoundOptions } from './sound'
 
 export interface HyperlinkOptions {
@@ -22,7 +22,7 @@ export enum HyperlinkTag {
 export class Hyperlink extends XmlComponent {
   constructor (readonly options: HyperlinkOptions = {}, readonly tag: HyperlinkTag) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const tag = this.tag
     const options = this.options
     const attr = {

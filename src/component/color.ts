@@ -1,4 +1,4 @@
-import { Xml, XmlAttrs, XmlComponent } from '../xml'
+import { Xml, XmlAttrs, XmlComponent, XmlElement } from '../xml'
 import {
   toAngle,
   toColorPct,
@@ -88,7 +88,7 @@ export interface ColorTransformOptions {
 export class Color extends XmlComponent {
   constructor (readonly options: ColorOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     const choice = this.getChoice(options)
     if (!choice) return

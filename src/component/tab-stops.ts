@@ -1,6 +1,6 @@
 import { TabAlignType } from '../interface/enum'
 import { STPoint } from '../interface/type'
-import { XmlComponent } from '../xml'
+import { XmlComponent, XmlElement } from '../xml'
 import { toEmu } from '../utils'
 
 export interface TabStopsOptions {
@@ -15,7 +15,7 @@ export interface TabStopOptions {
 export class TabStops extends XmlComponent {
   constructor (readonly options: TabStopsOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     if (!options.tabStops) return
     const children = options.tabStops.map(stop => {

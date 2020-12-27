@@ -1,4 +1,4 @@
-import { Xml, XmlComponent } from '../../xml'
+import { Xml, XmlComponent, XmlElement } from '../../xml'
 import { STPoint, STTextIndentLevel } from '../../interface/type'
 import { toEmu } from '../../utils'
 import { FontAlignType, TextAlignType } from '../../interface/enum'
@@ -45,7 +45,7 @@ export enum ParagraphPropertiesTag {
 export class ParagraphProperties extends XmlComponent {
   constructor (readonly options: ParagraphPropertiesOptions = {}, readonly tag = ParagraphPropertiesTag.Paragraph) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     const attr = {
       marL: toEmu(options.marginLeft),

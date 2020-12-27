@@ -1,5 +1,5 @@
 import { STPoint, STPositivePercentage } from '../interface/type'
-import { Xml, XmlComponent } from '../xml'
+import { Xml, XmlComponent, XmlElement } from '../xml'
 import { toHpt, toPositivePct } from '../utils'
 
 export interface SpacingOptions {
@@ -16,7 +16,7 @@ export enum SpacingTag {
 export class Spacing extends XmlComponent {
   constructor (readonly options: SpacingOptions = {}, readonly tag = SpacingTag.Line) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement | undefined {
     const children: Xml[] = []
     const options = this.options
     if (options.multiple != null) {

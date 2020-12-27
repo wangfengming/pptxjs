@@ -1,10 +1,10 @@
-import { XmlComponent } from '../xml'
+import { XmlComponent, XmlElement } from '../xml'
 import { Pptx } from '../pptx'
 
 export class Presentation extends XmlComponent {
   constructor (readonly pptx: Pptx) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const pptx = this.pptx
     const options = pptx.options
     return {

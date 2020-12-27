@@ -1,4 +1,4 @@
-import { Xml, XmlComponent } from '../xml'
+import { Xml, XmlComponent, XmlElement } from '../xml'
 
 export interface CorePropertiesOptions {
   title?: string;
@@ -21,7 +21,7 @@ export interface CorePropertiesOptions {
 export class CoreProperties extends XmlComponent {
   constructor (readonly options: CorePropertiesOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     const created = options.created ?? new Date()
     const modified = options.modified ?? new Date()

@@ -1,6 +1,6 @@
 import { TextField, TextFieldOptions, TextLineBreak, TextLineBreakOptions, TextRun, TextRunOptions } from './run'
 import { ParagraphProperties, ParagraphPropertiesOptions } from './paragraph-properties'
-import { XmlComponent } from '../../xml'
+import { XmlComponent, XmlElement } from '../../xml'
 import { EndParagraphRunProperties, RunPropertiesOptions } from './run-properties'
 
 export type RunOptions = string | TextRunOptions | TextLineBreakOptions | TextFieldOptions;
@@ -43,7 +43,7 @@ export class Paragraph extends XmlComponent {
     return run
   }
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     let children: XmlComponent[] = []
     children.push(new ParagraphProperties(options))

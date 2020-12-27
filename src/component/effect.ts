@@ -16,7 +16,7 @@ import {
   PresetShadowType,
   RectAlignType
 } from '../interface/enum'
-import { Xml, XmlComponent, XmlGroup } from '../xml'
+import { Xml, XmlComponent, XmlElement, XmlGroup } from '../xml'
 import {
   toEmu,
   toFixedAngle,
@@ -157,7 +157,10 @@ export class BlipEffect extends XmlComponent {
 
   xmlComponent (): XmlGroup {
     const options = this.options
-    return { type: 'group', children: [new EffectBase(options), new BlipEffectBase(options)] }
+    return {
+      type: 'group',
+      children: [new EffectBase(options), new BlipEffectBase(options)],
+    }
   }
 }
 
@@ -166,7 +169,10 @@ export class EffectListGroup extends XmlComponent {
 
   xmlComponent (): XmlGroup {
     const options = this.options
-    return { type: 'group', children: [new EffectBase(options), new EffectListBase(options)] }
+    return {
+      type: 'group',
+      children: [new EffectBase(options), new EffectListBase(options)],
+    }
   }
 }
 
@@ -190,16 +196,19 @@ export class EffectGroup extends XmlComponent {
 export class EffectList extends XmlComponent {
   constructor (readonly options: EffectListOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
-    return { tag: 'a:effectLst', children: [new EffectListGroup(options)] }
+    return {
+      tag: 'a:effectLst',
+      children: [new EffectListGroup(options)],
+    }
   }
 }
 
 export class EffectContainer extends XmlComponent {
   constructor (readonly options: EffectContainerOptions = {}, readonly tag = EffectContainerTag.Container) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     return {
       tag: this.tag,
@@ -379,7 +388,7 @@ class EffectGroupBase extends XmlComponent {
 class ColorChange extends XmlComponent {
   constructor (readonly options: ColorChangeOptions) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     return {
       tag: 'a:clrChange',
@@ -395,7 +404,7 @@ class ColorChange extends XmlComponent {
 class Glow extends XmlComponent {
   constructor (readonly options: GlowOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     if (!options.color) return
     return {
@@ -409,7 +418,7 @@ class Glow extends XmlComponent {
 class InnerShadow extends XmlComponent {
   constructor (readonly options: InnerShadowOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     return {
       tag: 'a:innerShdw',
@@ -426,7 +435,7 @@ class InnerShadow extends XmlComponent {
 class OuterShadow extends XmlComponent {
   constructor (readonly options: OuterShadowOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     return {
       tag: 'a:outerShdw',
@@ -449,7 +458,7 @@ class OuterShadow extends XmlComponent {
 class PresetShadow extends XmlComponent {
   constructor (readonly options: PresetShadowOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     if (!options.preset) return
     return {
@@ -467,7 +476,7 @@ class PresetShadow extends XmlComponent {
 class Reflection extends XmlComponent {
   constructor (readonly options: ReflectionOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     return {
       tag: 'a:reflection',
@@ -494,7 +503,7 @@ class Reflection extends XmlComponent {
 class Transform extends XmlComponent {
   constructor (readonly options: TransformOptions = {}) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
     return {
       tag: 'a:xfrm',

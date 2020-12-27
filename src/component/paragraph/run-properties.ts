@@ -1,5 +1,5 @@
 import { toHpt, toPct } from '../../utils'
-import { Xml, XmlComponent } from '../../xml'
+import { Xml, XmlComponent, XmlElement } from '../../xml'
 import { Line, LineOptions, UnderlineLine } from '../line'
 import { CapType, StrikeType, UnderlineType } from '../../interface/enum'
 import { STPercentage, STPoint } from '../../interface/type'
@@ -55,7 +55,7 @@ export enum RunPropertiesTag {
 export class RunProperties extends XmlComponent {
   constructor (readonly options: RunPropertiesOptions = {}, readonly tag = RunPropertiesTag.Text) {super()}
 
-  xmlComponent () {
+  xmlComponent (): XmlElement {
     const options = this.options
 
     const attr = {
