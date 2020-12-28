@@ -9,6 +9,8 @@ import {
   toPositiveFixedPct,
   toPositivePct
 } from '../../utils'
+
+import { SchemeColorType } from '../../interface/enum'
 import {
   STAngle,
   STColorPercentage,
@@ -19,7 +21,6 @@ import {
   STPositiveFixedPercentage,
   STPositivePercentage
 } from '../../interface/type'
-import { SchemeColorType } from '../../interface/enum'
 
 export interface ColorOptions extends ColorChoiceOptions, ColorTransformOptions {}
 

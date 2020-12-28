@@ -1,8 +1,9 @@
-import { RunProperties, RunPropertiesOptions } from './run-properties'
 import { Xml, XmlComponent, XmlElement } from '../../xml'
-import { ParagraphProperties, ParagraphPropertiesOptions } from './paragraph-properties'
-import { TextFieldType } from '../../interface/enum'
 import { uuid } from '../../utils'
+import { ParagraphProperties, ParagraphPropertiesOptions } from './paragraphProperties'
+import { RunProperties, RunPropertiesOptions } from './runProperties'
+
+import { TextFieldType } from '../../interface/enum'
 
 export interface TextRunOptions extends RunPropertiesOptions {
   runType?: 'run',

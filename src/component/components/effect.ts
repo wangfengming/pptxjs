@@ -1,21 +1,3 @@
-import {
-  STFixedAngle,
-  STFixedPercentage,
-  STPercentage,
-  STPoint,
-  STPositiveFixedAngle,
-  STPositiveFixedPercentage,
-  STPositivePercentage
-} from '../../interface/type'
-import { Color, ColorOptions, HslOptions } from './color'
-import { Fill, FillOptions } from './fill'
-import {
-  BlendModeType,
-  EffectContainerType,
-  EffectReferenceType,
-  PresetShadowType,
-  RectAlignType
-} from '../../interface/enum'
 import { Xml, XmlComponent, XmlElement, XmlGroup } from '../../xml'
 import {
   toEmu,
@@ -26,6 +8,25 @@ import {
   toPositiveFixedPct,
   toPositivePct
 } from '../../utils'
+import { Color, ColorOptions, HslOptions } from './color'
+import { Fill, FillOptions } from './fill'
+
+import {
+  BlendModeType,
+  EffectContainerType,
+  EffectReferenceType,
+  PresetShadowType,
+  RectAlignType
+} from '../../interface/enum'
+import {
+  STFixedAngle,
+  STFixedPercentage,
+  STPercentage,
+  STPoint,
+  STPositiveFixedAngle,
+  STPositiveFixedPercentage,
+  STPositivePercentage
+} from '../../interface/type'
 
 export interface BlipEffectOptions extends EffectBaseOptions, BlipEffectBaseOptions {}
 

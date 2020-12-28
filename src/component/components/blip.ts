@@ -1,6 +1,7 @@
 import { XmlComponent, XmlElement } from '../../xml'
-import { BlipCompressionType } from '../../interface/enum'
 import { BlipEffect, BlipEffectOptions } from './effect'
+
+import { BlipCompressionType } from '../../interface/enum'
 
 export interface BlipOptions extends BlipChoiceOptions, BlipEffectOptions {
   compressionState?: BlipCompressionType;

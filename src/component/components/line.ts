@@ -1,5 +1,7 @@
 import { XmlComponent, XmlElement } from '../../xml'
 import { toEmu, toPositivePct } from '../../utils'
+import { LineFill, LineFillOptions } from './fill'
+
 import {
   CompoundType,
   EndingCapType,
@@ -9,7 +11,6 @@ import {
   StrokeAlignType
 } from '../../interface/enum'
 import { STInch, STPositivePercentage } from '../../interface/type'
-import { LineFill, LineFillOptions } from './fill'
 
 export interface LineOptions extends LineDashOptions {
   width?: STInch;

@@ -1,13 +1,14 @@
-import { toHpt, toPct } from '../../utils'
 import { Xml, XmlComponent, XmlElement } from '../../xml'
+import { toHpt, toPct } from '../../utils'
 import { Line, LineOptions, UnderlineLine } from '../components/line'
-import { CapType, StrikeType, UnderlineType } from '../../interface/enum'
-import { STPercentage, STPoint } from '../../interface/type'
 import { Fill, FillOptions } from '../components/fill'
 import { EffectContainerOptions, EffectDag, EffectList, EffectListOptions } from '../components/effect'
 import { Color, ColorOptions } from '../components/color'
 import { Font, FontOptions } from '../components/font'
 import { HyperlinkClick, HyperlinkMouseOver, HyperlinkOptions } from '../components/hyperlink'
+
+import { CapType, StrikeType, UnderlineType } from '../../interface/enum'
+import { STPercentage, STPoint } from '../../interface/type'
 
 export interface RunPropertiesOptions {
   kumimoji?: boolean;

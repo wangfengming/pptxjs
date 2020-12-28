@@ -1,6 +1,6 @@
 import { Slide, SlideOptions } from './slide/slide'
-import { CorePropertiesOptions } from './props/core-properties'
-import { AppPropertiesOptions } from './props/app-properties'
+import { CorePropertiesOptions } from './props/coreProperties'
+import { AppPropertiesOptions } from './props/appProperties'
 
 export interface PptxOptions extends CorePropertiesOptions, AppPropertiesOptions {
   rlt?: boolean;

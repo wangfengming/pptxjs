@@ -1,11 +1,12 @@
 import { Xml, XmlComponent, XmlElement } from '../../xml'
-import { STPoint, STTextIndentLevel } from '../../interface/type'
 import { toEmu } from '../../utils'
-import { FontAlignType, TextAlignType } from '../../interface/enum'
 import { Spacing, SpacingAfter, SpacingBefore, SpacingOptions } from '../components/spacing'
 import { Bullet, BulletOptions } from '../components/bullet'
-import { TabStopOptions, TabStops } from '../components/tab-stops'
-import { DefaultTextRunProperties, RunPropertiesOptions } from './run-properties'
+import { TabStopOptions, TabStops } from '../components/tabStops'
+import { DefaultTextRunProperties, RunPropertiesOptions } from './runProperties'
+
+import { STPoint, STTextIndentLevel } from '../../interface/type'
+import { FontAlignType, TextAlignType } from '../../interface/enum'
 
 export interface ParagraphPropertiesOptions {
   marginLeft?: STPoint;

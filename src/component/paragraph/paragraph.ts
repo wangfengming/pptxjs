@@ -1,7 +1,7 @@
-import { TextField, TextFieldOptions, TextLineBreak, TextLineBreakOptions, TextRun, TextRunOptions } from './run'
-import { ParagraphProperties, ParagraphPropertiesOptions } from './paragraph-properties'
 import { XmlComponent, XmlElement } from '../../xml'
-import { EndParagraphRunProperties, RunPropertiesOptions } from './run-properties'
+import { ParagraphProperties, ParagraphPropertiesOptions } from './paragraphProperties'
+import { EndParagraphRunProperties, RunPropertiesOptions } from './runProperties'
+import { TextField, TextFieldOptions, TextLineBreak, TextLineBreakOptions, TextRun, TextRunOptions } from './run'
 
 export type RunOptions = string | TextRunOptions | TextLineBreakOptions | TextFieldOptions;
 

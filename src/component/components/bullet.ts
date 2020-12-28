@@ -1,9 +1,10 @@
 import { Xml, XmlComponent, XmlGroup } from '../../xml'
-import { BulletAutonumberType } from '../../interface/enum'
 import { Blip, BlipOptions } from './blip'
-import { STPoint, STPositivePercentage } from '../../interface/type'
 import { toHpt, toPct } from '../../utils'
 import { Color, ColorOptions } from './color'
+
+import { BulletAutonumberType } from '../../interface/enum'
+import { STPoint, STPositivePercentage } from '../../interface/type'
 
 export interface BulletOptions {
   autonumber?: {
@@ -51,7 +52,10 @@ export class Bullet extends XmlComponent {
     if (options.autonumber) {
       children.push({
         tag: 'a:buAutoNum',
-        attr: { type: options.autonumber.type ?? BulletAutonumberType.arabicPeriod, startAt: options.autonumber.startAt }
+        attr: {
+          type: options.autonumber.type ?? BulletAutonumberType.arabicPeriod,
+          startAt: options.autonumber.startAt
+        }
       })
     } else if (options.char) {
       children.push({ tag: 'a:buChar', attr: { char: options.char } })

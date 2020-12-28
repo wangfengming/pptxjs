@@ -1,6 +1,7 @@
-import { STPoint, STPositivePercentage } from '../../interface/type'
 import { Xml, XmlComponent, XmlElement } from '../../xml'
 import { toHpt, toPositivePct } from '../../utils'
+
+import { STPoint, STPositivePercentage } from '../../interface/type'
 
 export interface SpacingOptions {
   multiple?: STPositivePercentage;
