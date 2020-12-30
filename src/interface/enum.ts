@@ -126,9 +126,9 @@ export enum RectAlignType {
 }
 
 export enum TileFlipType {
-  Horizontal = 'x',
-  Vertical = 'y',
-  HorizontalVertical = 'xy',
+  X = 'x',
+  Y = 'y',
+  XY = 'xy',
 }
 
 export enum PathShadeType {

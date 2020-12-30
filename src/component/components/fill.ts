@@ -137,10 +137,10 @@ export interface BlipFillOptions {
   rotateWithShape?: boolean;
   sourceRect?: RectangleOptions;
   tile?: {
-    horizontalOffset?: STPoint;
-    verticalOffset?: STPoint;
-    horizontalScale?: STPercentage;
-    verticalScale?: STPercentage;
+    xOffset?: STPoint;
+    yOffset?: STPoint;
+    xScale?: STPercentage;
+    yScale?: STPercentage;
     flip?: TileFlipType;
     align?: RectAlignType;
   };
@@ -165,10 +165,10 @@ export class BlipFill extends XmlComponent {
       children.push({
         tag: 'a:tile',
         attr: {
-          tx: toEmu(options.tile.horizontalOffset),
-          ty: toEmu(options.tile.verticalOffset),
-          sx: toPct(options.tile.horizontalScale),
-          sy: toPct(options.tile.verticalScale),
+          tx: toEmu(options.tile.xOffset),
+          ty: toEmu(options.tile.yOffset),
+          sx: toPct(options.tile.xScale),
+          sy: toPct(options.tile.yScale),
           flip: options.tile.flip,
           algn: options.tile.align,
         },

@@ -61,10 +61,10 @@ export interface OuterShadowOptions {
   blurRadius?: STPoint;
   direction?: STPositiveFixedAngle;
   distance?: STPoint;
-  horizontalScale?: STPercentage;
-  verticalScale?: STPercentage;
-  horizontalSkew?: STFixedAngle;
-  verticalSkew?: STFixedAngle;
+  xScale?: STPercentage;
+  yScale?: STPercentage;
+  xSkew?: STFixedAngle;
+  ySkew?: STFixedAngle;
   align?: RectAlignType;
   rotateWithShape?: boolean;
   color?: ColorOptions;
@@ -86,21 +86,21 @@ export interface ReflectionOptions {
   distance?: STPoint;
   direction?: STPositiveFixedAngle;
   fadeDirection?: STPositiveFixedAngle;
-  horizontalScale?: STPercentage;
-  verticalScale?: STPercentage;
-  horizontalSkew?: STFixedAngle;
-  verticalSkew?: STFixedAngle;
+  xScale?: STPercentage;
+  yScale?: STPercentage;
+  xSkew?: STFixedAngle;
+  ySkew?: STFixedAngle;
   align?: RectAlignType;
   rotateWithShape?: boolean;
 }
 
 export interface TransformOptions {
-  horizontalScale?: STPercentage;
-  verticalScale?: STPercentage;
-  horizontalSkew?: STFixedAngle;
-  verticalSkew?: STFixedAngle;
-  horizontalShift?: STPoint;
-  verticalShift?: STPoint;
+  xScale?: STPercentage;
+  yScale?: STPercentage;
+  xSkew?: STFixedAngle;
+  ySkew?: STFixedAngle;
+  xShift?: STPoint;
+  yShift?: STPoint;
 }
 
 export enum EffectContainerTag {
@@ -444,10 +444,10 @@ class OuterShadow extends XmlComponent {
         blurRad: toEmu(options.blurRadius),
         dist: toEmu(options.distance),
         dir: toPositiveFixedAngle(options.direction),
-        sx: toPct(options.horizontalScale),
-        sy: toPct(options.verticalScale),
-        kx: toFixedAngle(options.horizontalSkew),
-        ky: toFixedAngle(options.verticalSkew),
+        sx: toPct(options.xScale),
+        sy: toPct(options.yScale),
+        kx: toFixedAngle(options.xSkew),
+        ky: toFixedAngle(options.ySkew),
         algn: options.align,
         rotWithShape: options.rotateWithShape,
       },
@@ -490,10 +490,10 @@ class Reflection extends XmlComponent {
         dist: toEmu(options.distance),
         dir: toPositiveFixedAngle(options.direction),
         fadeDir: toPositiveFixedAngle(options.fadeDirection),
-        sx: toPct(options.horizontalScale),
-        sy: toPct(options.verticalScale),
-        kx: toFixedAngle(options.horizontalSkew),
-        ky: toFixedAngle(options.verticalSkew),
+        sx: toPct(options.xScale),
+        sy: toPct(options.yScale),
+        kx: toFixedAngle(options.xSkew),
+        ky: toFixedAngle(options.ySkew),
         algn: options.align,
         rotWithShape: options.rotateWithShape,
       },
@@ -509,12 +509,12 @@ class Transform extends XmlComponent {
     return {
       tag: 'a:xfrm',
       attr: {
-        sx: toPct(options.horizontalScale),
-        sy: toPct(options.verticalScale),
-        kx: toFixedAngle(options.horizontalSkew),
-        ky: toFixedAngle(options.verticalSkew),
-        tx: toEmu(options.horizontalShift),
-        ty: toEmu(options.verticalShift),
+        sx: toPct(options.xScale),
+        sy: toPct(options.yScale),
+        kx: toFixedAngle(options.xSkew),
+        ky: toFixedAngle(options.ySkew),
+        tx: toEmu(options.xShift),
+        ty: toEmu(options.yShift),
       },
     }
   }
