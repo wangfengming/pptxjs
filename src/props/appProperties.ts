@@ -62,7 +62,7 @@ export class AppProperties extends XmlComponent {
           <SharedDoc>false</SharedDoc>
           <HyperlinksChanged>false</HyperlinksChanged>
           <AppVersion>16.0000</AppVersion>
-      </Properties>`
+      </Properties>`,
     }
   }
 }

@@ -10,7 +10,7 @@ import {
   STPositiveFixedAngle,
   STPositiveFixedPercentage,
   STPositivePercentage,
-  STValue
+  STValue,
 } from './interface/type'
 
 const units = {

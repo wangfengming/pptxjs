@@ -27,7 +27,7 @@ describe('xml', () => {
         <a>
           <b>c</b>
         </a>
-        `
+        `,
     }
     const result = xmlStringify(xml)
     expect(result).to.equal('<a><b>c</b></a>')
@@ -41,7 +41,7 @@ describe('xml', () => {
         <a>
           <b>c</b>
         </a>
-        `
+        `,
     }
     const result = xmlStringify(xml)
     expect(result).to.equal('<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\r\n<a><b>c</b></a>')

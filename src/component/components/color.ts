@@ -7,7 +7,7 @@ import {
   toPct,
   toPositiveFixedAngle,
   toPositiveFixedPct,
-  toPositivePct
+  toPositivePct,
 } from '../../utils'
 
 import { SchemeColorType } from '../../interface/enum'
@@ -19,7 +19,7 @@ import {
   STPercentage,
   STPositiveFixedAngle,
   STPositiveFixedPercentage,
-  STPositivePercentage
+  STPositivePercentage,
 } from '../../interface/type'
 
 export interface ColorOptions extends ColorChoiceOptions, ColorTransformOptions {}

@@ -54,8 +54,8 @@ export class Bullet extends XmlComponent {
         tag: 'a:buAutoNum',
         attr: {
           type: options.autonumber.type ?? BulletAutonumberType.arabicPeriod,
-          startAt: options.autonumber.startAt
-        }
+          startAt: options.autonumber.startAt,
+        },
       })
     } else if (options.char) {
       children.push({ tag: 'a:buChar', attr: { char: options.char } })

@@ -39,12 +39,12 @@ export class CoreProperties extends XmlComponent {
     children.push({
       tag: 'dcterms:created',
       attr: { 'xsi:type': 'dcterms:W3CDTF' },
-      children: [typeof created === 'string' ? created : created.toISOString().replace(/\.\d{3}Z/, 'Z')]
+      children: [typeof created === 'string' ? created : created.toISOString().replace(/\.\d{3}Z/, 'Z')],
     })
     children.push({
       tag: 'dcterms:modified',
       attr: { 'xsi:type': 'dcterms:W3CDTF' },
-      children: [typeof modified === 'string' ? modified : modified.toISOString().replace(/\.\d{3}Z/, 'Z')]
+      children: [typeof modified === 'string' ? modified : modified.toISOString().replace(/\.\d{3}Z/, 'Z')],
     })
     if (options.description) children.push({ tag: 'dc:description', children: [options.description] })
     if (options.identifier) children.push({ tag: 'dc:identifier', children: [options.identifier] })

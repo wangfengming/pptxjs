@@ -357,7 +357,7 @@ export class NotesMaster extends XmlComponent {
                   </a:defRPr>
               </a:lvl9pPr>
           </p:notesStyle>
-      </p:notesMaster>`
+      </p:notesMaster>`,
     }
   }
 }

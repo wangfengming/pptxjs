@@ -8,7 +8,7 @@ import {
   LineDashType,
   LineEndSizeType,
   LineEndType,
-  StrokeAlignType
+  StrokeAlignType,
 } from '../../interface/enum'
 import { STInch, STPositivePercentage } from '../../interface/type'
 

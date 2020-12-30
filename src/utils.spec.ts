@@ -11,7 +11,7 @@ import {
   toPositiveFixedAngle,
   toPositiveFixedPct,
   toPositivePct,
-  uuid
+  uuid,
 } from './utils'
 
 describe('handle unit', () => {
