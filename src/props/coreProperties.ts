@@ -19,7 +19,9 @@ export interface CorePropertiesOptions {
 }
 
 export class CoreProperties extends XmlComponent {
-  constructor (readonly options: CorePropertiesOptions = {}) {super()}
+  constructor (readonly options: CorePropertiesOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options

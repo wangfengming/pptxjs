@@ -13,7 +13,9 @@ export interface BlipChoiceOptions {
 }
 
 export class Blip extends XmlComponent {
-  constructor (readonly options: BlipOptions = {}) {super()}
+  constructor (readonly options: BlipOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options

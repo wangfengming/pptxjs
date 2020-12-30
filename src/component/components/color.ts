@@ -87,7 +87,9 @@ export interface ColorTransformOptions {
 }
 
 export class Color extends XmlComponent {
-  constructor (readonly options: ColorOptions = {}) {super()}
+  constructor (readonly options: ColorOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options

@@ -2,7 +2,9 @@ import { XmlComponent, XmlElement } from '../xml'
 import { Pptx } from '../pptx'
 
 export class Presentation extends XmlComponent {
-  constructor (readonly pptx: Pptx) {super()}
+  constructor (readonly pptx: Pptx) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const pptx = this.pptx

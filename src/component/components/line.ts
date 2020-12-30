@@ -29,7 +29,9 @@ export enum LineTag {
 }
 
 export class Line extends XmlComponent {
-  constructor (readonly options: LineOptions = {}, readonly tag = LineTag.Line) {super()}
+  constructor (readonly options: LineOptions = {}, readonly tag = LineTag.Line) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -51,7 +53,9 @@ export class Line extends XmlComponent {
 }
 
 export class UnderlineLine extends Line {
-  constructor (options: LineOptions = {}) {super(options, LineTag.UnderlineLine)}
+  constructor (options: LineOptions = {}) {
+    super(options, LineTag.UnderlineLine)
+  }
 }
 
 export interface LineDashOptions {
@@ -64,7 +68,9 @@ export interface CustomDashStop {
 }
 
 export class LineDash extends XmlComponent {
-  constructor (readonly options: LineDashOptions = {}) {super()}
+  constructor (readonly options: LineDashOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -87,7 +93,9 @@ export interface LineJoinOptions {
 export type LineJoinType = 'round' | 'bevel' | 'miter'
 
 export class LineJoin extends XmlComponent {
-  constructor (readonly options: LineJoinOptions = {}) {super()}
+  constructor (readonly options: LineJoinOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -110,7 +118,9 @@ export enum LineEndTag {
 }
 
 export class LineEnd extends XmlComponent {
-  constructor (readonly options: LineEndOptions = {}, readonly tag: LineEndTag) {super()}
+  constructor (readonly options: LineEndOptions = {}, readonly tag: LineEndTag) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -119,9 +129,13 @@ export class LineEnd extends XmlComponent {
 }
 
 export class LineHeadEnd extends LineEnd {
-  constructor (options?: LineEndOptions) {super(options, LineEndTag.Head)}
+  constructor (options?: LineEndOptions) {
+    super(options, LineEndTag.Head)
+  }
 }
 
 export class LineTailEnd extends LineEnd {
-  constructor (options?: LineEndOptions) {super(options, LineEndTag.Tail)}
+  constructor (options?: LineEndOptions) {
+    super(options, LineEndTag.Tail)
+  }
 }

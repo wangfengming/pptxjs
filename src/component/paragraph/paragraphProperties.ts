@@ -44,7 +44,9 @@ export enum ParagraphPropertiesTag {
 }
 
 export class ParagraphProperties extends XmlComponent {
-  constructor (readonly options: ParagraphPropertiesOptions = {}, readonly tag = ParagraphPropertiesTag.Paragraph) {super()}
+  constructor (readonly options: ParagraphPropertiesOptions = {}, readonly tag = ParagraphPropertiesTag.Paragraph) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -75,5 +77,7 @@ export class ParagraphProperties extends XmlComponent {
 }
 
 export class DefaultParagraphProperties extends ParagraphProperties {
-  constructor (options: ParagraphPropertiesOptions = {}) {super(options, ParagraphPropertiesTag.DefaultParagraph)}
+  constructor (options: ParagraphPropertiesOptions = {}) {
+    super(options, ParagraphPropertiesTag.DefaultParagraph)
+  }
 }

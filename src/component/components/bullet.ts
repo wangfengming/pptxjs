@@ -23,7 +23,9 @@ export interface BulletOptions {
 }
 
 export class Bullet extends XmlComponent {
-  constructor (readonly options: BulletOptions = {}) {super()}
+  constructor (readonly options: BulletOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlGroup {
     const options = this.options

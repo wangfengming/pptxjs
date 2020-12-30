@@ -2,7 +2,9 @@ import { XmlComponent, XmlRaw } from '../xml'
 import { Pptx } from '../pptx'
 
 export class NotesMaster extends XmlComponent {
-  constructor (readonly pptx: Pptx) {super()}
+  constructor (readonly pptx: Pptx) {
+    super()
+  }
 
   xmlComponent (): XmlRaw | undefined {
     if (!this.pptx.noteSlides.length) return

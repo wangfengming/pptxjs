@@ -12,7 +12,9 @@ export enum SoundTag {
 }
 
 export class Sound extends XmlComponent {
-  constructor (readonly options: SoundOptions, readonly tag = SoundTag.Sound) {super()}
+  constructor (readonly options: SoundOptions, readonly tag = SoundTag.Sound) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const tag = this.tag
@@ -22,5 +24,7 @@ export class Sound extends XmlComponent {
 }
 
 export class WavAudioFile extends Sound {
-  constructor (options: SoundOptions) {super(options, SoundTag.WavAudioFile)}
+  constructor (options: SoundOptions) {
+    super(options, SoundTag.WavAudioFile)
+  }
 }

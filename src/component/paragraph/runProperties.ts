@@ -54,7 +54,9 @@ export enum RunPropertiesTag {
 }
 
 export class RunProperties extends XmlComponent {
-  constructor (readonly options: RunPropertiesOptions = {}, readonly tag = RunPropertiesTag.Text) {super()}
+  constructor (readonly options: RunPropertiesOptions = {}, readonly tag = RunPropertiesTag.Text) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -116,9 +118,13 @@ export class RunProperties extends XmlComponent {
 }
 
 export class DefaultTextRunProperties extends RunProperties {
-  constructor (options: RunPropertiesOptions = {}) {super(options, RunPropertiesTag.DefaultText)}
+  constructor (options: RunPropertiesOptions = {}) {
+    super(options, RunPropertiesTag.DefaultText)
+  }
 }
 
 export class EndParagraphRunProperties extends RunProperties {
-  constructor (options: RunPropertiesOptions = {}) {super(options, RunPropertiesTag.EndParagraph)}
+  constructor (options: RunPropertiesOptions = {}) {
+    super(options, RunPropertiesTag.EndParagraph)
+  }
 }

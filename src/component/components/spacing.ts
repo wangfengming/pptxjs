@@ -15,7 +15,9 @@ export enum SpacingTag {
 }
 
 export class Spacing extends XmlComponent {
-  constructor (readonly options: SpacingOptions = {}, readonly tag = SpacingTag.Line) {super()}
+  constructor (readonly options: SpacingOptions = {}, readonly tag = SpacingTag.Line) {
+    super()
+  }
 
   xmlComponent (): XmlElement | undefined {
     const children: Xml[] = []
@@ -33,9 +35,13 @@ export class Spacing extends XmlComponent {
 }
 
 export class SpacingBefore extends Spacing {
-  constructor (options: SpacingOptions) {super(options, SpacingTag.Before)}
+  constructor (options: SpacingOptions) {
+    super(options, SpacingTag.Before)
+  }
 }
 
 export class SpacingAfter extends Spacing {
-  constructor (options: SpacingOptions) {super(options, SpacingTag.After)}
+  constructor (options: SpacingOptions) {
+    super(options, SpacingTag.After)
+  }
 }

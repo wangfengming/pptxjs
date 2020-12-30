@@ -14,7 +14,9 @@ export interface TabStopOptions {
 }
 
 export class TabStops extends XmlComponent {
-  constructor (readonly options: TabStopsOptions = {}) {super()}
+  constructor (readonly options: TabStopsOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options

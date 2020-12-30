@@ -8,7 +8,9 @@ export interface FontOptions {
 }
 
 export class Font extends XmlComponent {
-  constructor (readonly options: FontOptions = {}) {super()}
+  constructor (readonly options: FontOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlGroup {
     const options = this.options

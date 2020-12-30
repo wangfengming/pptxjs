@@ -15,7 +15,9 @@ export type FillOptions =
   | { type?: 'group' }
 
 export class Fill extends XmlComponent {
-  constructor (readonly options: FillOptions = {}) {super()}
+  constructor (readonly options: FillOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlElement | undefined {
     const options = this.options
@@ -36,7 +38,9 @@ export type LineFillOptions =
   | { type?: 'pattern' } & PatternFillOptions
 
 export class LineFill extends XmlComponent {
-  constructor (readonly options: LineFillOptions = {}) {super()}
+  constructor (readonly options: LineFillOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlElement | undefined {
     const options = this.options
@@ -59,7 +63,9 @@ export interface SolidFillOption {
 }
 
 export class SolidFill extends XmlComponent {
-  constructor (readonly options: SolidFillOption = {}) {super()}
+  constructor (readonly options: SolidFillOption = {}) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -74,7 +80,9 @@ export interface PatternFillOptions {
 }
 
 export class PatternFill extends XmlComponent {
-  constructor (readonly options?: PatternFillOptions) {super()}
+  constructor (readonly options?: PatternFillOptions) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -101,7 +109,9 @@ export interface GradientStopOptions {
 }
 
 export class GradientFill extends XmlComponent {
-  constructor (readonly options?: GradientFillOptions) {super()}
+  constructor (readonly options?: GradientFillOptions) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -110,7 +120,11 @@ export class GradientFill extends XmlComponent {
     const children: (XmlComponent | Xml | undefined)[] = []
     if (options.stops?.length && options.stops.length > 1) {
       const stops = options.stops.map(stop => {
-        return { tag: 'a:gs', attr: { pos: toPositiveFixedPct(stop.position) }, children: [new Color(stop.color)] }
+        return {
+          tag: 'a:gs',
+          attr: { pos: toPositiveFixedPct(stop.position) },
+          children: [new Color(stop.color)],
+        }
       })
       children.push({ tag: 'a:gsLst', children: stops })
     }
@@ -148,7 +162,9 @@ export interface BlipFillOptions {
 }
 
 export class BlipFill extends XmlComponent {
-  constructor (readonly options?: BlipFillOptions) {super()}
+  constructor (readonly options?: BlipFillOptions) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -204,7 +220,9 @@ export enum RectangleTag {
 }
 
 export class Rectangle extends XmlComponent {
-  constructor (readonly options: RectangleOptions | undefined, readonly tag: RectangleTag) {super()}
+  constructor (readonly options: RectangleOptions | undefined, readonly tag: RectangleTag) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options

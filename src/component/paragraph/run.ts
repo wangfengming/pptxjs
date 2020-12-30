@@ -24,7 +24,9 @@ export interface TextFieldOptions extends RunPropertiesOptions {
 }
 
 export class TextRun extends XmlComponent {
-  constructor (readonly options: TextRunOptions = {}) {super()}
+  constructor (readonly options: TextRunOptions = {}) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -36,7 +38,9 @@ export class TextRun extends XmlComponent {
 }
 
 export class TextLineBreak extends XmlComponent {
-  constructor (readonly options: TextLineBreakOptions = { runType: 'lineBreak' }) {super()}
+  constructor (readonly options: TextLineBreakOptions = { runType: 'lineBreak' }) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options
@@ -45,7 +49,9 @@ export class TextLineBreak extends XmlComponent {
 }
 
 export class TextField extends XmlComponent {
-  constructor (readonly options: TextFieldOptions = { runType: 'field' }) {super()}
+  constructor (readonly options: TextFieldOptions = { runType: 'field' }) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const options = this.options

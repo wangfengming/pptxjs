@@ -20,7 +20,9 @@ export enum HyperlinkTag {
 }
 
 export class Hyperlink extends XmlComponent {
-  constructor (readonly options: HyperlinkOptions = {}, readonly tag: HyperlinkTag) {super()}
+  constructor (readonly options: HyperlinkOptions = {}, readonly tag: HyperlinkTag) {
+    super()
+  }
 
   xmlComponent (): XmlElement {
     const tag = this.tag
@@ -42,13 +44,19 @@ export class Hyperlink extends XmlComponent {
 }
 
 export class HyperlinkClick extends Hyperlink {
-  constructor (options: HyperlinkOptions) {super(options, HyperlinkTag.Click)}
+  constructor (options: HyperlinkOptions) {
+    super(options, HyperlinkTag.Click)
+  }
 }
 
 export class HyperlinkMouseOver extends Hyperlink {
-  constructor (options: HyperlinkOptions) {super(options, HyperlinkTag.MouseOver)}
+  constructor (options: HyperlinkOptions) {
+    super(options, HyperlinkTag.MouseOver)
+  }
 }
 
 export class HyperlinkHover extends Hyperlink {
-  constructor (options: HyperlinkOptions) {super(options, HyperlinkTag.Hover)}
+  constructor (options: HyperlinkOptions) {
+    super(options, HyperlinkTag.Hover)
+  }
 }

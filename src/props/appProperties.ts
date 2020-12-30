@@ -6,7 +6,9 @@ export interface AppPropertiesOptions {
 }
 
 export class AppProperties extends XmlComponent {
-  constructor (readonly options: AppPropertiesOptions = {}, readonly pptx: Pptx) {super()}
+  constructor (readonly options: AppPropertiesOptions = {}, readonly pptx: Pptx) {
+    super()
+  }
 
   xmlComponent (): XmlRaw {
     const options = this.options
