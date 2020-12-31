@@ -7,19 +7,24 @@ import { BulletAutonumberType } from '../../interface/enum'
 import { STPoint, STPositivePercentage } from '../../interface/type'
 
 export interface BulletOptions {
+  // EG_TextBullet
+  none?: true;
   autonumber?: {
     type?: BulletAutonumberType;
     startAt?: number;
   };
   char?: string;
   blip?: BlipOptions;
-  font?: boolean | string;
+  // EG_TextBulletTypeface
+  font?: true | string;
+  // EG_TextBulletSize
   size?: {
-    followText?: boolean;
+    followText?: true;
     multiple?: STPositivePercentage;
     exactly?: STPoint;
   };
-  color?: boolean | ColorOptions;
+  // EG_TextBulletColor
+  color?: { followText?: true } & ColorOptions;
 }
 
 export class Bullet extends XmlComponent {
@@ -31,7 +36,7 @@ export class Bullet extends XmlComponent {
     const options = this.options
     const children: (Xml | XmlComponent)[] = []
 
-    if (options.color === true) {
+    if (options.color?.followText) {
       children.push({ tag: 'a:buClrTx' })
     } else if (options.color) {
       children.push({ tag: 'a:buClr', children: [new Color(options.color)] })
@@ -47,11 +52,16 @@ export class Bullet extends XmlComponent {
 
     if (options.font === true) {
       children.push({ tag: 'a:buFontTx' })
-    } else if (typeof options.font === 'string' && options.font) {
-      children.push({ tag: 'a:buFont', attr: { typeface: options.font, charset: 0 } })
+    } else if (options.font) {
+      children.push({
+        tag: 'a:buFont',
+        attr: { typeface: options.font, charset: 0 },
+      })
     }
 
-    if (options.autonumber) {
+    if (options.none) {
+      children.push({ tag: 'a:buNone' })
+    } else if (options.autonumber) {
       children.push({
         tag: 'a:buAutoNum',
         attr: {
@@ -59,7 +69,7 @@ export class Bullet extends XmlComponent {
           startAt: options.autonumber.startAt,
         },
       })
-    } else if (options.char) {
+    } else if (options.char != null) {
       children.push({ tag: 'a:buChar', attr: { char: options.char } })
     } else if (options.blip) {
       children.push(new Blip(options.blip))

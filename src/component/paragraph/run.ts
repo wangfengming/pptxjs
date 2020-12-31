@@ -32,7 +32,13 @@ export class TextRun extends XmlComponent {
     const options = this.options
     return {
       tag: 'a:r',
-      children: [new RunProperties(options), { tag: 'a:t', children: [options.text ?? ''] }],
+      children: [
+        new RunProperties(options),
+        {
+          tag: 'a:t',
+          children: [options.text ?? ''],
+        },
+      ],
     }
   }
 }
@@ -44,7 +50,10 @@ export class TextLineBreak extends XmlComponent {
 
   xmlComponent (): XmlElement {
     const options = this.options
-    return { tag: 'a:br', children: [new RunProperties(options)] }
+    return {
+      tag: 'a:br',
+      children: [new RunProperties(options)],
+    }
   }
 }
 
@@ -57,9 +66,15 @@ export class TextField extends XmlComponent {
     const options = this.options
     const attr = { id: uuid(), type: options.type }
     const children: (Xml | XmlComponent)[] = []
-    if (options.runProperties) children.push(new RunProperties(options.runProperties))
-    if (options.paragraphProperties) children.push(new ParagraphProperties(options.paragraphProperties))
-    if (options.text != null) children.push({ tag: 'a:t', children: [options.text] })
+    if (options.runProperties) {
+      children.push(new RunProperties(options.runProperties))
+    }
+    if (options.paragraphProperties) {
+      children.push(new ParagraphProperties(options.paragraphProperties))
+    }
+    if (options.text != null) {
+      children.push({ tag: 'a:t', children: [options.text] })
+    }
     return { tag: 'a:fld', attr, children }
   }
 }

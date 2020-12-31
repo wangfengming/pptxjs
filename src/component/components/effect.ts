@@ -28,15 +28,19 @@ import {
   STPositivePercentage,
 } from '../../interface/type'
 
+// CT_Blip effect choice
 export interface BlipEffectOptions extends EffectBaseOptions, BlipEffectBaseOptions {}
 
+// CT_EffectList note: this is a sequence
 export interface EffectListOptions extends EffectBaseOptions, EffectListBaseOptions {}
 
+// EG_Effect
 export interface EffectGroupOptions extends EffectBaseOptions, BlipEffectBaseOptions, EffectListBaseOptions, EffectGroupBaseOptions {}
 
-export interface EffectContainerOptions extends EffectGroupOptions {
+export interface EffectContainerOptions {
   type?: EffectContainerType;
   name?: string;
+  effects?: EffectGroupOptions[];
 }
 
 export interface ColorChangeOptions {
@@ -127,7 +131,7 @@ interface BlipEffectBaseOptions {
   biLevel?: STPositiveFixedPercentage;
   colorChange?: ColorChangeOptions;
   colorReplace?: ColorOptions;
-  duotone?: ColorOptions;
+  duotone?: [ColorOptions, ColorOptions];
   grayScale?: boolean;
   hsl?: Partial<HslOptions>;
   lum?: { brightness?: STFixedPercentage; contrast?: STFixedPercentage };
@@ -154,63 +158,32 @@ interface EffectGroupBaseOptions {
 }
 
 export class BlipEffect extends XmlComponent {
-  constructor (readonly options: BlipEffectOptions = {}) {
+  constructor (readonly options: BlipEffectOptions[]) {
     super()
   }
 
   xmlComponent (): XmlGroup {
     const options = this.options
-    return {
-      type: 'group',
-      children: [new EffectBase(options), new BlipEffectBase(options)],
-    }
-  }
-}
-
-export class EffectListGroup extends XmlComponent {
-  constructor (readonly options: EffectListOptions = {}) {
-    super()
-  }
-
-  xmlComponent (): XmlGroup {
-    const options = this.options
-    return {
-      type: 'group',
-      children: [new EffectBase(options), new EffectListBase(options)],
-    }
-  }
-}
-
-export class EffectGroup extends XmlComponent {
-  constructor (readonly options: EffectGroupOptions = {}) {
-    super()
-  }
-
-  xmlComponent (): XmlGroup {
-    const options = this.options
-    return {
-      type: 'group',
-      children: [
-        new EffectBase(options),
-        new BlipEffectBase(options),
-        new EffectListBase(options),
-        new EffectGroupBase(options),
-      ],
-    }
+    const children = options.map(options => {
+      return new EffectBase(options).xmlComponent()
+        ?? new BlipEffectBase(options).xmlComponent()
+    })
+    return { type: 'group', children }
   }
 }
 
 export class EffectList extends XmlComponent {
-  constructor (readonly options: EffectListOptions = {}) {
+  constructor (readonly options: EffectListOptions[]) {
     super()
   }
 
   xmlComponent (): XmlElement {
     const options = this.options
-    return {
-      tag: 'a:effectLst',
-      children: [new EffectListGroup(options)],
-    }
+    const children = options.map(options => {
+      return new EffectBase(options).xmlComponent()
+        ?? new EffectListBase(options).xmlComponent()
+    })
+    return { tag: 'a:effectLst', children }
   }
 }
 
@@ -221,10 +194,16 @@ export class EffectContainer extends XmlComponent {
 
   xmlComponent (): XmlElement {
     const options = this.options
+    const children = options.effects?.map(options => {
+      return new EffectBase(options).xmlComponent()
+        ?? new BlipEffectBase(options).xmlComponent()
+        ?? new EffectListBase(options).xmlComponent()
+        ?? new EffectGroupBase(options).xmlComponent()
+    }) ?? []
     return {
       tag: this.tag,
       attr: { type: options.type, name: options.name },
-      children: [new EffectGroup(options)],
+      children,
     }
   }
 }
@@ -240,20 +219,24 @@ class EffectBase extends XmlComponent {
     super()
   }
 
-  xmlComponent (): XmlGroup {
+  xmlComponent (): Xml {
     const options = this.options
-    const children: Xml[] = []
     if (options.blur) {
-      children.push({ tag: 'a:blur', attr: { grow: options.blur.grow, rad: toEmu(options.blur.radius) } })
+      return {
+        tag: 'a:blur',
+        attr: {
+          grow: options.blur.grow,
+          rad: toEmu(options.blur.radius),
+        },
+      }
     }
     if (options.fillOverlay) {
-      children.push({
+      return {
         tag: 'a:fillOverlay',
         attr: { blend: options.fillOverlay.blend },
         children: [new Fill(options.fillOverlay.fill)],
-      })
+      }
     }
-    return { type: 'group', children }
   }
 }
 
@@ -262,77 +245,96 @@ class BlipEffectBase extends XmlComponent {
     super()
   }
 
-  xmlComponent (): XmlGroup {
+  xmlComponent (): Xml {
     const options = this.options
-    const children: (Xml | XmlComponent)[] = []
     if (options.alphaBiLevel != null) {
-      children.push({ tag: 'a:alphaBiLevel', attr: { thresh: toPositiveFixedPct(options.alphaBiLevel) } })
+      return {
+        tag: 'a:alphaBiLevel',
+        attr: { thresh: toPositiveFixedPct(options.alphaBiLevel) },
+      }
     }
     if (options.alphaCeiling) {
-      children.push({ tag: 'a:alphaCeiling' })
+      return { tag: 'a:alphaCeiling' }
     }
     if (options.alphaFloor) {
-      children.push({ tag: 'a:alphaFloor' })
+      return { tag: 'a:alphaFloor' }
     }
     if (options.alphaInverse) {
-      children.push({ tag: 'a:alphaInv', children: [new Color(options.alphaInverse)] })
+      return {
+        tag: 'a:alphaInv',
+        children: [new Color(options.alphaInverse)],
+      }
     }
     if (options.alphaMod) {
-      children.push({
+      return {
         tag: 'a:alphaMod',
         children: [new EffectContainer(options.alphaMod)],
-      })
+      }
     }
     if (options.alphaModFix) {
-      children.push({ tag: 'a:alphaModFix', attr: { amt: toPositivePct(options.alphaModFix) } })
+      return {
+        tag: 'a:alphaModFix',
+        attr: { amt: toPositivePct(options.alphaModFix) },
+      }
     }
     if (options.alphaReplace) {
-      children.push({ tag: 'a:alphaRepl', attr: { a: toPositiveFixedPct(options.alphaReplace) } })
+      return {
+        tag: 'a:alphaRepl',
+        attr: { a: toPositiveFixedPct(options.alphaReplace) },
+      }
     }
     if (options.biLevel) {
-      children.push({ tag: 'a:biLevel', attr: { thresh: toPositiveFixedPct(options.biLevel) } })
+      return {
+        tag: 'a:biLevel',
+        attr: { thresh: toPositiveFixedPct(options.biLevel) },
+      }
     }
     if (options.colorChange) {
-      children.push(new ColorChange(options.colorChange))
+      return new ColorChange(options.colorChange).xmlComponent()
     }
     if (options.colorReplace) {
-      children.push({ tag: 'a:clrRepl', children: [new Color(options.colorReplace)] })
+      return {
+        tag: 'a:clrRepl',
+        children: [new Color(options.colorReplace)],
+      }
     }
-    if (options.duotone) {
-      children.push({ tag: 'a:duotone', children: [new Color(options.duotone)] })
+    if (options.duotone && options.duotone.length === 2) {
+      return {
+        tag: 'a:duotone',
+        children: options.duotone.map(options => new Color(options)),
+      }
     }
     if (options.grayScale) {
-      children.push({ tag: 'a:grayscl' })
+      return { tag: 'a:grayscl' }
     }
     if (options.hsl) {
-      children.push({
+      return {
         tag: 'a:hsl',
         attr: {
           hue: toPositiveFixedAngle(options.hsl.hue),
           sat: toPct(options.hsl.sat),
           lum: toPct(options.hsl.lum),
         },
-      })
+      }
     }
     if (options.lum) {
-      children.push({
+      return {
         tag: 'a:lum',
         attr: {
           bright: toFixedPct(options.lum.brightness),
           contrast: toFixedPct(options.lum.contrast),
         },
-      })
+      }
     }
     if (options.tint) {
-      children.push({
+      return {
         tag: 'a:tint',
         attr: {
           hue: toPositiveFixedAngle(options.tint.hue),
           amt: toFixedPct(options.tint.amount),
         },
-      })
+      }
     }
-    return { type: 'group', children }
   }
 }
 
@@ -341,28 +343,29 @@ class EffectListBase extends XmlComponent {
     super()
   }
 
-  xmlComponent (): XmlGroup {
+  xmlComponent (): Xml {
     const options = this.options
-    const children: (Xml | XmlComponent)[] = []
     if (options.glow) {
-      children.push(new Glow(options.glow))
+      return new Glow(options.glow).xmlComponent()
     }
     if (options.innerShadow) {
-      children.push(new InnerShadow(options.innerShadow))
+      return new InnerShadow(options.innerShadow).xmlComponent()
     }
     if (options.outerShadow) {
-      children.push(new OuterShadow(options.outerShadow))
+      return new OuterShadow(options.outerShadow).xmlComponent()
     }
     if (options.presetShadow) {
-      children.push(new PresetShadow(options.presetShadow))
+      return new PresetShadow(options.presetShadow).xmlComponent()
     }
     if (options.reflection) {
-      children.push(new Reflection(options.reflection))
+      return new Reflection(options.reflection).xmlComponent()
     }
     if (options.softEdge) {
-      children.push({ tag: 'a:softEdge', attr: { rad: toEmu(options.softEdge.radius) } })
+      return {
+        tag: 'a:softEdge',
+        attr: { rad: toEmu(options.softEdge.radius) },
+      }
     }
-    return { type: 'group', children }
   }
 }
 
@@ -371,38 +374,45 @@ class EffectGroupBase extends XmlComponent {
     super()
   }
 
-  xmlComponent (): XmlGroup {
+  xmlComponent (): Xml {
     const options = this.options
-    const children: (Xml | XmlComponent)[] = []
     if (options.effectContainer) {
-      children.push(new EffectContainer(options.effectContainer))
+      return new EffectContainer(options.effectContainer).xmlComponent()
     }
     if (options.effect) {
-      children.push({ tag: 'a:effect', attr: { ref: options.effect.reference } })
+      return {
+        tag: 'a:effect',
+        attr: { ref: options.effect.reference },
+      }
     }
     if (options.alphaOutset) {
-      children.push({ tag: 'a:alphaOutset', attr: { rad: toEmu(options.alphaOutset.radius) } })
+      return {
+        tag: 'a:alphaOutset',
+        attr: { rad: toEmu(options.alphaOutset.radius) },
+      }
     }
     if (options.blend) {
-      children.push({
+      return {
         tag: 'a:blend',
         attr: { blend: options.blend.blend },
         children: [new EffectContainer(options.blend.effectContainer)],
-      })
+      }
     }
     if (options.fill) {
-      children.push({ tag: 'a:fill', children: [new Fill(options.fill)] })
+      return { tag: 'a:fill', children: [new Fill(options.fill)] }
     }
     if (options.relativeOffset) {
-      children.push({
+      return {
         tag: 'a:relOff',
-        attr: { tx: toPct(options.relativeOffset.offsetX), ty: toPct(options.relativeOffset.offsetY) },
-      })
+        attr: {
+          tx: toPct(options.relativeOffset.offsetX),
+          ty: toPct(options.relativeOffset.offsetY),
+        },
+      }
     }
     if (options.transform) {
-      children.push(new Transform(options.transform))
+      return new Transform(options.transform).xmlComponent()
     }
-    return { type: 'group', children }
   }
 }
 

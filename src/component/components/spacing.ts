@@ -3,6 +3,7 @@ import { toHpt, toPositivePct } from '../../utils'
 
 import { STPoint, STPositivePercentage } from '../../interface/type'
 
+// CT_TextSpacing
 export interface SpacingOptions {
   multiple?: STPositivePercentage;
   exactly?: STPoint;

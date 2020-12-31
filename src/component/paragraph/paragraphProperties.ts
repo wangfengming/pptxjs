@@ -65,12 +65,24 @@ export class ParagraphProperties extends XmlComponent {
     }
     const children: (Xml | XmlComponent)[] = []
 
-    if (options.lineSpacing) children.push(new Spacing(options.lineSpacing))
-    if (options.spacingBefore) children.push(new SpacingBefore(options.spacingBefore))
-    if (options.spacingAfter) children.push(new SpacingAfter(options.spacingAfter))
-    if (options.bullet) children.push(new Bullet(options.bullet))
-    if (options.tabStops) children.push(new TabStops({ tabStops: options.tabStops }))
-    if (options.defaultRunProperties) children.push(new DefaultTextRunProperties(options.defaultRunProperties))
+    if (options.lineSpacing) {
+      children.push(new Spacing(options.lineSpacing))
+    }
+    if (options.spacingBefore) {
+      children.push(new SpacingBefore(options.spacingBefore))
+    }
+    if (options.spacingAfter) {
+      children.push(new SpacingAfter(options.spacingAfter))
+    }
+    if (options.bullet) {
+      children.push(new Bullet(options.bullet))
+    }
+    if (options.tabStops) {
+      children.push(new TabStops({ tabStops: options.tabStops }))
+    }
+    if (options.defaultRunProperties) {
+      children.push(new DefaultTextRunProperties(options.defaultRunProperties))
+    }
 
     return { tag: this.tag, attr, children }
   }

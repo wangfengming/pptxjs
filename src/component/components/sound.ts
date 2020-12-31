@@ -19,7 +19,14 @@ export class Sound extends XmlComponent {
   xmlComponent (): XmlElement {
     const tag = this.tag
     const options = this.options
-    return { tag, attr: { 'r:embed': options.embed, name: options.name, buildIn: options.buildIn } }
+    return {
+      tag,
+      attr: {
+        'r:embed': options.embed,
+        name: options.name,
+        buildIn: options.buildIn,
+      },
+    }
   }
 }
 

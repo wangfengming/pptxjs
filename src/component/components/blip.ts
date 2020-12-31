@@ -3,10 +3,12 @@ import { BlipEffect, BlipEffectOptions } from './effect'
 
 import { BlipCompressionType } from '../../interface/enum'
 
-export interface BlipOptions extends BlipChoiceOptions, BlipEffectOptions {
+export interface BlipOptions extends BlipChoiceOptions {
   compressionState?: BlipCompressionType;
+  effects?: BlipEffectOptions[];
 }
 
+// CT_OleObject
 export interface BlipChoiceOptions {
   embedId?: string;
   linkId?: string;
@@ -25,6 +27,10 @@ export class Blip extends XmlComponent {
       'r:link': options.embedId ? undefined : options.linkId,
       cstate: options.compressionState,
     }
-    return { tag: 'a:blip', attr, children: [new BlipEffect(options)] }
+    return {
+      tag: 'a:blip',
+      attr,
+      children: [new BlipEffect(options.effects)],
+    }
   }
 }

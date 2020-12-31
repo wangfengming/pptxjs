@@ -6,13 +6,15 @@ import { Blip, BlipOptions } from './blip'
 import { PathShadeType, PatternFillPresetType, RectAlignType, TileFlipType } from '../../interface/enum'
 import { STPercentage, STPoint, STPositiveFixedPercentage } from '../../interface/type'
 
-export type FillOptions =
-  { type?: 'no' }
-  | { type?: 'solid' } & SolidFillOption
-  | { type?: 'gradient' } & GradientFillOptions
-  | { type?: 'pattern' } & PatternFillOptions
-  | { type?: 'blip' } & BlipFillOptions
-  | { type?: 'group' }
+// EG_FillProperties
+export interface FillOptions {
+  no?: true;
+  solid?: SolidFillOption;
+  gradient?: GradientFillOptions;
+  pattern?: PatternFillOptions;
+  blip?: BlipFillOptions;
+  group?: true;
+}
 
 export class Fill extends XmlComponent {
   constructor (readonly options: FillOptions = {}) {
@@ -21,21 +23,34 @@ export class Fill extends XmlComponent {
 
   xmlComponent (): XmlElement | undefined {
     const options = this.options
-    if (!options.type) return
-    if (options.type === 'no') return new NoFill().xmlComponent()
-    if (options.type === 'solid') return new SolidFill(options).xmlComponent()
-    if (options.type === 'gradient') return new GradientFill(options).xmlComponent()
-    if (options.type === 'pattern') return new PatternFill(options).xmlComponent()
-    if (options.type === 'blip') return new BlipFill(options).xmlComponent()
-    if (options.type === 'group') return new GroupFill().xmlComponent()
+    if (options.no) {
+      return new NoFill().xmlComponent()
+    }
+    if (options.solid) {
+      return new SolidFill(options.solid).xmlComponent()
+    }
+    if (options.gradient) {
+      return new GradientFill(options.gradient).xmlComponent()
+    }
+    if (options.pattern) {
+      return new PatternFill(options.pattern).xmlComponent()
+    }
+    if (options.blip) {
+      return new BlipFill(options.blip).xmlComponent()
+    }
+    if (options.group) {
+      return new GroupFill().xmlComponent()
+    }
   }
 }
 
-export type LineFillOptions =
-  { type?: 'no' }
-  | { type?: 'solid' } & SolidFillOption
-  | { type?: 'gradient' } & GradientFillOptions
-  | { type?: 'pattern' } & PatternFillOptions
+// EG_LineFillProperties
+export interface LineFillOptions {
+  no?: true;
+  solid?: SolidFillOption;
+  gradient?: GradientFillOptions;
+  pattern?: PatternFillOptions;
+}
 
 export class LineFill extends XmlComponent {
   constructor (readonly options: LineFillOptions = {}) {
@@ -44,11 +59,18 @@ export class LineFill extends XmlComponent {
 
   xmlComponent (): XmlElement | undefined {
     const options = this.options
-    if (!options.type) return
-    if (options.type === 'no') return new NoFill().xmlComponent()
-    if (options.type === 'solid') return new SolidFill(options).xmlComponent()
-    if (options.type === 'gradient') return new GradientFill(options).xmlComponent()
-    if (options.type === 'pattern') return new PatternFill(options).xmlComponent()
+    if (options.no) {
+      return new NoFill().xmlComponent()
+    }
+    if (options.solid) {
+      return new SolidFill(options.solid).xmlComponent()
+    }
+    if (options.gradient) {
+      return new GradientFill(options.gradient).xmlComponent()
+    }
+    if (options.pattern) {
+      return new PatternFill(options.pattern).xmlComponent()
+    }
   }
 }
 
@@ -69,7 +91,10 @@ export class SolidFill extends XmlComponent {
 
   xmlComponent (): XmlElement {
     const options = this.options
-    return { tag: 'a:solidFill', children: [new Color(options.color)] }
+    return {
+      tag: 'a:solidFill',
+      children: [new Color(options.color)],
+    }
   }
 }
 
@@ -88,9 +113,23 @@ export class PatternFill extends XmlComponent {
     const options = this.options
     if (!options) return
     const children: Xml[] = []
-    if (options.background) children.push({ tag: 'a:bgClr', children: [new Color(options.background)] })
-    if (options.foreground) children.push({ tag: 'a:fgClr', children: [new Color(options.foreground)] })
-    return { tag: 'a:pattFill', attr: { prst: options.preset }, children }
+    if (options.background) {
+      children.push({
+        tag: 'a:bgClr',
+        children: [new Color(options.background)],
+      })
+    }
+    if (options.foreground) {
+      children.push({
+        tag: 'a:fgClr',
+        children: [new Color(options.foreground)],
+      })
+    }
+    return {
+      tag: 'a:pattFill',
+      attr: { prst: options.preset },
+      children,
+    }
   }
 }
 
@@ -98,8 +137,11 @@ export interface GradientFillOptions {
   flip?: TileFlipType;
   rotateWithShape?: boolean;
   stops?: GradientStopOptions[];
-  linear?: { angle?: number; scaled?: boolean };
-  path?: { path?: PathShadeType; fillToRect?: RectangleOptions };
+  // EG_ShadeProperties
+  shade?: {
+    linear?: { angle?: number; scaled?: boolean };
+    path?: { path?: PathShadeType; fillToRect?: RectangleOptions };
+  };
   tileRect?: RectangleOptions;
 }
 
@@ -128,19 +170,24 @@ export class GradientFill extends XmlComponent {
       })
       children.push({ tag: 'a:gsLst', children: stops })
     }
-    if (options.linear) {
+    if (options.shade?.linear) {
       children.push({
         tag: 'a:lin',
-        attr: { ang: options.linear.angle, scaled: options.linear.scaled },
+        attr: {
+          ang: options.shade.linear.angle,
+          scaled: options.shade.linear.scaled,
+        },
       })
-    } else if (options.path) {
+    } else if (options.shade?.path) {
       children.push({
         tag: 'a:path',
-        attr: { path: options.path.path },
-        children: [new Rectangle(options.path.fillToRect, RectangleTag.FillToRect)],
+        attr: { path: options.shade.path.path },
+        children: [new Rectangle(options.shade.path.fillToRect, RectangleTag.FillToRect)],
       })
     }
-    if (options.tileRect) children.push(new Rectangle(options.tileRect, RectangleTag.TileRect))
+    if (options.tileRect) {
+      children.push(new Rectangle(options.tileRect, RectangleTag.TileRect))
+    }
     return { tag: 'a:gradFill', attr, children }
   }
 }
@@ -150,15 +197,18 @@ export interface BlipFillOptions {
   dpi?: number;
   rotateWithShape?: boolean;
   sourceRect?: RectangleOptions;
-  tile?: {
-    xOffset?: STPoint;
-    yOffset?: STPoint;
-    xScale?: STPercentage;
-    yScale?: STPercentage;
-    flip?: TileFlipType;
-    align?: RectAlignType;
+  // EG_FillModeProperties
+  fillMode?: {
+    tile?: {
+      xOffset?: STPoint;
+      yOffset?: STPoint;
+      xScale?: STPercentage;
+      yScale?: STPercentage;
+      flip?: TileFlipType;
+      align?: RectAlignType;
+    };
+    stretch?: RectangleOptions;
   };
-  stretch?: RectangleOptions;
 }
 
 export class BlipFill extends XmlComponent {
@@ -177,22 +227,22 @@ export class BlipFill extends XmlComponent {
     if (options.sourceRect) {
       children.push(new Rectangle(options.sourceRect, RectangleTag.SrcRect))
     }
-    if (options?.tile) {
+    if (options.fillMode?.tile) {
       children.push({
         tag: 'a:tile',
         attr: {
-          tx: toEmu(options.tile.xOffset),
-          ty: toEmu(options.tile.yOffset),
-          sx: toPct(options.tile.xScale),
-          sy: toPct(options.tile.yScale),
-          flip: options.tile.flip,
-          algn: options.tile.align,
+          tx: toEmu(options.fillMode.tile.xOffset),
+          ty: toEmu(options.fillMode.tile.yOffset),
+          sx: toPct(options.fillMode.tile.xScale),
+          sy: toPct(options.fillMode.tile.yScale),
+          flip: options.fillMode.tile.flip,
+          algn: options.fillMode.tile.align,
         },
       })
-    } else if (options.stretch) {
+    } else if (options.fillMode?.stretch) {
       children.push({
         tag: 'a:stretch',
-        children: [new Rectangle(options.stretch, RectangleTag.FillRect)],
+        children: [new Rectangle(options.fillMode.stretch, RectangleTag.FillRect)],
       })
     }
     return { tag: 'a:blipFill', attr, children }

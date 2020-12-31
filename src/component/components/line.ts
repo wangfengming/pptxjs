@@ -12,12 +12,13 @@ import {
 } from '../../interface/enum'
 import { STInch, STPositivePercentage } from '../../interface/type'
 
-export interface LineOptions extends LineDashOptions {
+export interface LineOptions {
   width?: STInch;
   endingCap?: EndingCapType;
   compound?: CompoundType;
   strokeAlign?: StrokeAlignType;
   fill?: LineFillOptions;
+  dash?: LineDashOptions;
   join?: LineJoinOptions;
   headEnd?: LineEndOptions;
   tailEnd?: LineEndOptions;
@@ -44,7 +45,7 @@ export class Line extends XmlComponent {
     }
     const children: XmlComponent[] = []
     if (options.fill) children.push(new LineFill(options.fill))
-    if (options.dash) children.push(new LineDash({ dash: options.dash }))
+    if (options.dash) children.push(new LineDash(options.dash))
     if (options.join) children.push(new LineJoin(options.join))
     if (options.headEnd) children.push(new LineHeadEnd(options.headEnd))
     if (options.tailEnd) children.push(new LineTailEnd(options.tailEnd))
@@ -58,8 +59,10 @@ export class UnderlineLine extends Line {
   }
 }
 
+// EG_LineDashProperties
 export interface LineDashOptions {
-  dash?: LineDashType | CustomDashStop[]
+  preset?: LineDashType;
+  custom?: CustomDashStop[];
 }
 
 export interface CustomDashStop {
@@ -72,25 +75,31 @@ export class LineDash extends XmlComponent {
     super()
   }
 
-  xmlComponent (): XmlElement {
+  xmlComponent (): XmlElement | undefined {
     const options = this.options
-    if (!options.dash) return
-    if (typeof options.dash === 'string') {
-      return { tag: 'a:prstDash', attr: { val: options.dash } }
+    if (options.preset) {
+      return { tag: 'a:prstDash', attr: { val: options.preset } }
     }
-    const stops = options.dash.map(stop => {
-      return { tag: 'a:ds', attr: { d: toPositivePct(stop.dash), sp: toPositivePct(stop.space) } }
-    })
-    return { tag: 'a:custDash', children: stops }
+    if (options.custom) {
+      const children = options.custom.map(stop => {
+        return {
+          tag: 'a:ds',
+          attr: { d: toPositivePct(stop.dash), sp: toPositivePct(stop.space) },
+        }
+      })
+      return { tag: 'a:custDash', children }
+    }
   }
 }
 
+// EG_LineJoinProperties
 export interface LineJoinOptions {
-  type?: LineJoinType;
-  miterLimit?: STPositivePercentage;
+  round?: true;
+  bevel?: true;
+  miter?: {
+    limit?: STPositivePercentage;
+  };
 }
-
-export type LineJoinType = 'round' | 'bevel' | 'miter'
 
 export class LineJoin extends XmlComponent {
   constructor (readonly options: LineJoinOptions = {}) {
@@ -99,10 +108,18 @@ export class LineJoin extends XmlComponent {
 
   xmlComponent (): XmlElement {
     const options = this.options
-    if (!options.type) return
-    if (options.type === 'round') return { tag: 'a:round' }
-    if (options.type === 'bevel') return { tag: 'a:bevel' }
-    if (options.type === 'miter') return { tag: 'a:miter', attr: { lim: toPositivePct(options.miterLimit) } }
+    if (options.round) {
+      return { tag: 'a:round' }
+    }
+    if (options.bevel) {
+      return { tag: 'a:bevel' }
+    }
+    if (options.miter) {
+      return {
+        tag: 'a:miter',
+        attr: { lim: toPositivePct(options.miter.limit) },
+      }
+    }
   }
 }
 
